@@ -4,10 +4,6 @@ import os
 
 from starlette.responses import HTMLResponse, JSONResponse
 
-with open('filee/customers.json', 'r') as file:
-        content = json.load(file)
-
-
 from prettytable import PrettyTable
 
 app = FastAPI()
@@ -17,11 +13,20 @@ app = FastAPI()
 async def index():
     return "Ahalan! You can fetch some json by navigating to '/json'"
 
+
+
+
+with open('filee/customers.json', 'r') as file:
+        content = json.load(file)
+
+
+
 @app.get("/json")
 async def jsonc():
-    with open('filee/customers.json', 'r') as file:
-        content = json.load(file)
     return content
+
+
+
 
 #
 # @app.get("/saints")
