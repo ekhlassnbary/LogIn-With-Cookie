@@ -1,9 +1,8 @@
 from fastapi import FastAPI, HTTPException ,Cookie ,Response
 import mysql.connector
-
-
+#
 app = FastAPI()
-
+#
 # Connect to MySQL database
 connection = mysql.connector.connect(
     host='localhost',
@@ -59,4 +58,6 @@ def check_admin(UserId: str = Cookie(None)):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8001)
+
+
 
