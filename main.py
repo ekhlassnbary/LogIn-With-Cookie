@@ -4,7 +4,7 @@ import os
 
 from starlette.responses import HTMLResponse, JSONResponse
 
-with open('filee/customers.json', 'r') as file:
+with open('customers.json', 'r') as file:
         content = json.load(file)
 
 
@@ -19,7 +19,7 @@ async def index():
 
 @app.get("/json")
 async def jsonc():
-    with open('filee/customers.json', 'r') as file:
+    with open('customers.json', 'r') as file:
         content = json.load(file)
     return content
 

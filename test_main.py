@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 from main import app
-file_path = 'filee/customers.json'
+file_path = 'customers.json'
 import json
 client = TestClient(app)
 
