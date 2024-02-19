@@ -12,35 +12,47 @@ connection = mysql.connector.connect(
     password='root')
 
 
+
+
 @app.get("/LOGIN")
 def name(username:str,password:str, response: Response):
-        cursor = connection.cursor()
-        query = 'SELECT UserId FROM admin WHERE UserId = %s and UserPassword=%s'
-        cursor.execute(query, (username,password))
-        results = cursor.fetchall()
-        cursor.close()
+    """
+    log in with username and password and
+    if the user in my db i do cookie and
+    save userid init
 
-        if results:
+    """
+    cursor = connection.cursor()
+    query = 'SELECT UserId FROM admin WHERE UserId = %s and UserPassword=%s'
+    cursor.execute(query, (username,password))
+    results = cursor.fetchall()
+    cursor.close()
+
+    if results:
             response.set_cookie(key="UserId", value=results[0][0])
             return {"message": "Login successful"}
-        else:
+    else:
             raise HTTPException(status_code=401, detail="Unauthorized")
 
-# app.middleware("http")(name)
 
 
-# @app.get("/protected")
-# async def protected_route():
-#     return {"message": "This route is protected"}
-#
 
 
-@app.get("/admin")
-def check_admin(UserId: str = Cookie(None)):
+
+def iscookie(UserId: str = Cookie(None)):
+    """"
+    check if the userid in cookie
+    """
     if UserId:
             return {"message": f'You have longed in before ,welcome {UserId}'}
     raise HTTPException(status_code=401, detail="Unauthorized")
 
+
+
+
+@app.get("/admin")
+def check_admin(UserId: str = Cookie(None)):
+    return  iscookie(UserId)
 
 
 
